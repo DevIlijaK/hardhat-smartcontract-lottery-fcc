@@ -47,7 +47,6 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     callbackGasLimit,
     interval,
   ];
-  console.log("Argumenti", args);
   const raffle = await deploy("Raffle", {
     from: deployer,
     args: args,
@@ -56,8 +55,6 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
   });
   // Ensure the Raffle contract is a valid consumer of the VRFCoordinatorV2Mock contract.
   if (developmentChains.includes(network.name)) {
-    console.log("Sta je ovo: ", subscriptionId);
-    console.log("Dal je adresa ista? ", raffle.address);
     await vrfCoordinatorV2Mock.addConsumer(subscriptionId, raffle.address);
   }
 

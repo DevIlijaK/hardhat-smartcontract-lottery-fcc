@@ -1,4 +1,4 @@
-const { ethers, network } = require("hardhat");
+const { ethers, network, deployments } = require("hardhat");
 const {
   developmentChains,
   networkConfig,
@@ -118,7 +118,6 @@ const { assert, expect } = require("chai");
           await network.provider.send("evm_mine", []);
           const txResponse = await raffle.performUpkeep("0x");
           const txReceipt = await txResponse.wait(1);
-          console.log("EVENTS", txReceipt.logs[1].args.requestId);
           const requestId = txReceipt.logs[1].args.requestId;
           const raffleState = await raffle.getRaffleState();
           assert(Number(requestId) > 0);
